@@ -3,6 +3,8 @@ An Enter the Gungeon mod that allows changing various limiting settings within t
 
 Settings can be changed mid run if desired.  Menu can occasionally get stuck, if so then you'll need to either reopen the menu or restart the game.
 
+SETTINGS
+
 Rainbow Run Start:
 Edits how Rainbow Run works so that you can get some of the benifits of Rainbow Run without losing access to every other item.  Can be set low to serve as an initial boost to normal runs or high to just have an even more powerful version of Rainbow Run.
 
