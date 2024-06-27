@@ -17,7 +17,7 @@ namespace PushingTheLimits
     {
         public const string GUID = "bassforte.etg.pushingthelimits";
         public const string NAME = "Pushing The Limits";
-        public const string VERSION = "1.0.0";
+        public const string VERSION = "1.0.2";
         public const string TEXT_COLOR = "#00FFFF";
 
         internal static float currMagnificence = 0;
@@ -52,7 +52,7 @@ namespace PushingTheLimits
                 if (!(instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.CHARACTER_PAST || instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.FOYER || instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.TUTORIAL)
                     && GameStatsManager.Instance.rainbowRunToggled)
                 {
-                    newRainbowCheck = (GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) != "Vanilla") && (GameManager.Instance.CurrentFloor == 1 || (GameManager.Instance.CurrentFloor >= 1 && GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Rainbow Run Plus"));
+                    newRainbowCheck = (GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) != "Vanilla") && (GameManager.Instance.CurrentFloor == 1 || (GameStatsManager.Instance.GetSessionStatValue(TrackedStats.TIME_PLAYED) >= 0f && GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Rainbow Run Plus"));
                     __result = GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Vanilla";
                 }
                 else

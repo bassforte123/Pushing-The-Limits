@@ -26,3 +26,7 @@ Reduces the effect of the hidden Magnificence stat which makes A and S rank item
 Boss DPS Cap:
 Lets you reduce the effect of the Boss DPS Cap which prevents most powerful builds from killing bosses too quickly.
 
+
+
+
+Special Thanks to the Mod the Gungeon Discord and especially SpecialAPI and Captain Pretzel whom were tremendously helpful in giving advice and giving a framework to build off of.

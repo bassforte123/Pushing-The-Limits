@@ -1,0 +1,12 @@
+{
+	"name": "PushingTheLimits",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/bassforte123/Pushing-The-Limits",
+	"description": "An Enter the Gungeon Mod that allows loosening of some of the more restrictive balance settings.",
+	"dependencies": [
+		"BepInEx-BepInExPack_EtG-5.4.2101",
+		"MtG_API-Mod_the_Gungeon_API-1.7.0",
+		"Alexandria-Alexandria-0.4.0",
+		"CaptainPretzel-Gunfig-1.0.3"
+	]
+}
