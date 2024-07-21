@@ -1,6 +1,6 @@
 {
 	"name": "PushingTheLimits",
-	"version_number": "1.0.0",
+	"version_number": "1.0.5",
 	"website_url": "https://github.com/bassforte123/Pushing-The-Limits",
 	"description": "An Enter the Gungeon Mod that allows loosening of some of the more restrictive balance settings.",
 	"dependencies": [

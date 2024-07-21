@@ -23,8 +23,11 @@ Increases the effect of the hidden Synergy Factor stat which increases the chanc
 Magnificence:
 Reduces the effect of the hidden Magnificence stat which makes A and S rank items become less and less likely to appear, especially after the first one.
 
+Breakable Wall Strength:
+Infinite ammo guns can crack breakable walls the same as normal guns.
+
 Boss DPS Cap:
-Lets you reduce the effect of the Boss DPS Cap which prevents most powerful builds from killing bosses too quickly.
+Lets you reduce or increase the effect of the Boss DPS Cap which prevents most powerful builds from killing bosses too quickly.
 
 
 

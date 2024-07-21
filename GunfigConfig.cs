@@ -18,6 +18,7 @@ namespace PushingTheLimits
         internal const string SYNERGYFUSE_LABEL = "Synergy Chests have Normal Chest Fuse Rate";
         internal const string SYNERGYFACTOR_LABEL = "Synergy Factor";
         internal const string MAGNIFICENCE_LABEL = "Magnificence";
+        internal const string SECRET_LABEL = "Breakable Wall Strength";
         internal const string CAP_LABEL = "Boss DPS Cap";
 
         // Note the formatting applied to individual labels. Formatting can be applied to all menus strings, but NOT to option keys.
@@ -28,6 +29,7 @@ namespace PushingTheLimits
             "Rainbow Run Lite Lite".Green(),
             "Rainbow Run Lite Lite Lite".Blue(),
             "Rainbow Run Plus".Red(),
+            "Rainbow Run Plus Plus".Magenta(),
         };
 
         private static readonly List<string> RAINBOWRUN_DESCRIPTIONS = new()
@@ -36,7 +38,8 @@ namespace PushingTheLimits
             "Only receive the first Rainbow Run chest but you can still collect all other regular run items.".Gray(),
             "Same as Rainbow Run Lite but the Rainbow Chest has fewer A items and more C/D items.".Gray(),
             "Same as Rainbow Run Lite but the initial chest only has items of B quality or lower.".Gray(),
-            "Rainbow Run chests spawn on every floor AND you can collect regular run items!".Gray()
+            "Rainbow Run chests spawn on every floor AND you can collect regular run items!".Gray(),
+            "All items available! Treasure Rooms! Shops! Pedestals! The full Rainbow Chest!  Go make Bowler cry!".Gray()
         };
 
         private static readonly List<string> SYNERGYCHEST_OPTIONS = new()
@@ -85,13 +88,27 @@ namespace PushingTheLimits
             "Magnificence disabled".Gray(),
         };
 
+        private static readonly List<string> SECRET_OPTIONS = new()
+        {
+            "Vanilla".Gray(),
+            "Seek Secrets".Yellow(),
+        };
+
+        private static readonly List<string> SECRET_DESCRIPTIONS = new()
+        {
+            "Guns with infinite ammo cannot damage breakable walls.".Gray(),
+            "Guns with infinite ammo have the same effect on breakable walls as normal guns.".Gray(),
+        };
+
         private static readonly List<string> CAP_OPTIONS = new()
         {
             "Vanilla".Gray(),
-            "DPS Cap low".Yellow(),
-            "DPS Cap lower than that".Green(),
-            "DPS Cap even lower than that".Blue(),
+            "DPS Cap higher".Yellow(),
+            "DPS Cap higher than that".Green(),
+            "DPS Cap even higher than that".Blue(),
             "DPS Cap just turn it off".Red(),
+            "DPS Cap lower?".Cyan(),
+            "DPS Cap even lower??".Magenta(),
         };
 
         private static readonly List<string> CAP_DESCRIPTIONS = new()
@@ -101,15 +118,13 @@ namespace PushingTheLimits
             "Increase the Boss DPS cap by 50%".Gray(),
             "Increase the Boss DPS cap by 100%".Gray(),
             "Disable Boss DPS cap".Gray(),
+            "Lower the Boss DPS cap by 25%".Gray(),
+            "Lower the Boss DPS cap by 50%".Gray(),
         };
 
         internal static void Init()
         {
-            // Sets up a gunfig page named "Quality of Life", loads any existing "Quality of Life.gunfig" configuration from disk, and adds it to the Mod Config menu.
-            // It is recommended (but not necessary) to call Gunfig.Get() once and store the result in a static variable.
-            // You can replace WithColor() with any color you want to change the appearance on the mod menu. Defaults to white if nothing is specified.
-            // Calling Gunfig.Get() with the same page name will always return the same Gunfig instance, ignoring color markup.
-            // E.g., "Quality of Life".Red() will return the same page as "Quality of Life".Green() or simply "Quality of Life".
+            // Sets up a gunfig page named "Pushing the Limits", loads any existing "Pushing the Limits.gunfig" configuration from disk, and adds it to the Mod Config menu.
             _Gunfig = Gunfig.Get(modName: "Pushing the Limits".WithColor(Color.yellow));
 
             _Gunfig.AddScrollBox(key: RAINBOWRUN_LABEL, options: RAINBOWRUN_OPTIONS, info: RAINBOWRUN_DESCRIPTIONS);
@@ -118,9 +133,8 @@ namespace PushingTheLimits
             _Gunfig.AddToggle(key: SYNERGYFUSE_LABEL);
             _Gunfig.AddScrollBox(key: SYNERGYFACTOR_LABEL, options: SYNERGYFACTOR_OPTIONS, info: SYNERGYFACTOR_DESCRIPTIONS);
             _Gunfig.AddScrollBox(key: MAGNIFICENCE_LABEL, options: MAGNIFICENCE_OPTIONS, info: MAGNIFICENCE_DESCRIPTIONS);
+            _Gunfig.AddScrollBox(key: SECRET_LABEL, options: SECRET_OPTIONS, info: SECRET_DESCRIPTIONS);
             _Gunfig.AddScrollBox(key: CAP_LABEL, options: CAP_OPTIONS, info: CAP_DESCRIPTIONS);
-            //Rainbow Run elevator
-            //co op?
         }
 
     }

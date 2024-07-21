@@ -17,7 +17,7 @@ namespace PushingTheLimits
     {
         public const string GUID = "bassforte.etg.pushingthelimits";
         public const string NAME = "Pushing The Limits";
-        public const string VERSION = "1.0.2";
+        public const string VERSION = "1.0.5";
         public const string TEXT_COLOR = "#00FFFF";
 
         internal static float currMagnificence = 0;
@@ -52,7 +52,7 @@ namespace PushingTheLimits
                 if (!(instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.CHARACTER_PAST || instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.FOYER || instanceLite.CurrentLevelOverrideState == GameManager.LevelOverrideState.TUTORIAL)
                     && GameStatsManager.Instance.rainbowRunToggled)
                 {
-                    newRainbowCheck = (GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) != "Vanilla") && (GameManager.Instance.CurrentFloor == 1 || (GameStatsManager.Instance.GetSessionStatValue(TrackedStats.TIME_PLAYED) >= 0f && GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Rainbow Run Plus"));
+                    newRainbowCheck = (GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) != "Vanilla") && (GameManager.Instance.CurrentFloor == 1 || (GameStatsManager.Instance.GetSessionStatValue(TrackedStats.TIME_PLAYED) >= 0f && (GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Rainbow Run Plus" || GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Rainbow Run Plus Plus")));
                     __result = GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) == "Vanilla";
                 }
                 else
@@ -72,7 +72,7 @@ namespace PushingTheLimits
                         static bool Prefix(Chest __instance, List<Transform> spawnTransforms)
 
                         {                           
-                            if (__instance.IsRainbowChest && RainbowRunPatch.newRainbowCheck && __instance.transform.position.GetAbsoluteRoom() == GameManager.Instance.Dungeon.data.Entrance)
+                            if (__instance.IsRainbowChest && RainbowRunPatch.newRainbowCheck && __instance.transform.position.GetAbsoluteRoom() == GameManager.Instance.Dungeon.data.Entrance && GunfigConfig._Gunfig.Value(GunfigConfig.RAINBOWRUN_LABEL) != "Rainbow Run Plus Plus")
                             {
                                 List<DebrisObject> list = new List<DebrisObject>();
 
@@ -325,6 +325,8 @@ namespace PushingTheLimits
                 if (GunfigConfig._Gunfig.Value(GunfigConfig.CAP_LABEL) == "DPS Cap lower than that") capChange = 1.5f;
                 if (GunfigConfig._Gunfig.Value(GunfigConfig.CAP_LABEL) == "DPS Cap even lower than that") capChange = 2f;
                 if (GunfigConfig._Gunfig.Value(GunfigConfig.CAP_LABEL) == "DPS Cap just turn it off") capChange = 50f;
+                if (GunfigConfig._Gunfig.Value(GunfigConfig.CAP_LABEL) == "DPS Cap lower?") capChange = .75f;
+                if (GunfigConfig._Gunfig.Value(GunfigConfig.CAP_LABEL) == "DPS Cap even lower??") capChange = .5f;
 
                 GameLevelDefinition lastLoadedLevelDefinition = GameManager.Instance.GetLastLoadedLevelDefinition();
                 if (__instance.IsBoss && !__instance.IsSubboss && lastLoadedLevelDefinition.bossDpsCap > 0f)
@@ -337,6 +339,28 @@ namespace PushingTheLimits
                     __instance.m_bossDpsCap = lastLoadedLevelDefinition.bossDpsCap * num * capChange;
                 }
             }
+        }
+
+        //Make breakable walls ignore the infinite ammo status on guns
+        [HarmonyPatch(typeof(Projectile), nameof(Projectile.OnRigidbodyCollision))]
+        private class OnRigidBodyCollisionPatch
+        {
+            [HarmonyILManipulator]
+            private static void GenerateContentsIL(ILContext il)
+            {
+                ILCursor cursor = new ILCursor(il);
+
+                if (!cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Gun>("get_InfiniteAmmo")))
+                    return;
+                //cursor.MoveBeforeLabels();
+                cursor.Emit(OpCodes.Call, typeof(PushingTheLimitsModule).GetMethod("InfiniteAmmoCheck"));
+            }
+        }
+
+        public static bool InfiniteAmmoCheck(bool curr)
+        {
+            if (GunfigConfig._Gunfig.Value(GunfigConfig.SECRET_LABEL) == "Seek Secrets") return false; //return never infinite ammo so that infinte guns act like regular guns
+            return curr; //normal infinite ammo status
         }
 
 
